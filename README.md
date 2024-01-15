@@ -1,37 +1,80 @@
-## Available Scripts
+# React and Redux Posts Web Application
 
-In the project directory, you can run:
+This web application is developed using React and Redux to present posts retrieved from the [JSONPlaceholder](https://jsonplaceholder.typicode.com/) API. The application includes features such as a tabular view for posts, pagination, sorting, and the ability to select a specific user.
 
-### `npm start`
+## Table of Contents
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Features
 
-### `npm test`
+1. **Tabular View for Posts:**
+   - Displays posts in a tabular format with columns for User Id, Title, and Body.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. **Pagination:**
+   - Allows users to select 5, 10, 15, 20, or 25 records per page.
+   - Frontend pagination implementation for a seamless user experience.
 
-### `npm run build`
+3. **Sorting:**
+   - Enables users to sort the table columns in both ascending and descending order.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. **User Selection:**
+   - Allows users to select a specific user.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+5. **View Single Post:**
+   - Upon selection, calls the API: `https://jsonplaceholder.typicode.com/posts/{id}` to fetch and display data for the chosen post.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Prerequisites
 
-### `npm run eject`
+Before you begin, ensure you have the following installed:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Node.js: [Download Node.js](https://nodejs.org/)
+- npm (Node Package Manager): This is included with Node.js. npm is used to manage project dependencies.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Installation
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. Clone the repository:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```bash
+   git clone https://github.com/AlhanoufKMLz/roshn-assignment.git
+```
 
+2. Change into the project directory:
+
+```bash
+    cd roshn-assignment
+```
+
+3. Install dependencies:
+
+```bash
+    npm install
+```
+
+## Usage
+
+1. Start the development server:
+
+```bash
+    npm start
+```
+This will open the application in your default web browser.
+
+2. Explore the features such as tabular post view, pagination, sorting, and user selection.
+
+## Projrct Structure
+
+- src/components: Contains React components used in the application.
+- src/pages: Contains React components representing different pages of the application.
+- src/redux: Contains Redux-related files, including actions, reducers, and the Redux store setup.
+- src/types: Defines TypeScript types used in the application.
+- public: Contains the index.html file.
+
+## Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests.

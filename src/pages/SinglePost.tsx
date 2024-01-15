@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+
 import { AppDispatch, RootState } from "../redux/store";
 import { fetchSinglePost } from "../redux/slices/posts";
 

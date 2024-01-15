@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { AppDispatch, RootState } from "../redux/store";
 import { fetchAllPosts, sortPosts } from "../redux/slices/posts";
-import PostsTable from "../components/PostsTable";
 import { Post } from "../types/types";
+import PostsTable from "../components/PostsTable";
 
 export default function MainPage() {
   const dispatch = useDispatch<AppDispatch>();

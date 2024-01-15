@@ -1,9 +1,11 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { Post } from "../../types/types";
+import { InitialState } from "../../types/types";
+
+const url = "https://jsonplaceholder.typicode.com/posts";
 
 export const fetchAllPosts = createAsyncThunk("posts/fetchPosts", async () => {
-  const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+  const response = await fetch(url);
   const data = await response.json();
   return data;
 });
@@ -11,19 +13,11 @@ export const fetchAllPosts = createAsyncThunk("posts/fetchPosts", async () => {
 export const fetchSinglePost = createAsyncThunk(
   "posts/fetchSinglePost",
   async (postId: string) => {
-    const response = await fetch("https://jsonplaceholder.typicode.com/posts/"+ postId);
+    const response = await fetch(`${url}/${postId}`);
     const data = await response.json();
     return data;
   }
 );
-
-type InitialState = {
-  postsList: Post[];
-  users: number[];
-  post: Post | null;
-  loading: boolean;
-  error: null | string | undefined;
-};
 
 const initialState: InitialState = {
   postsList: [],
@@ -71,7 +65,9 @@ export const postsSlice = createSlice({
         state.postsList = action.payload;
         state.loading = false;
         state.postsList.map((post) => {
-          if (!state.users.includes(post.userId)) state.users.push(post.userId);
+          if (!state.users.includes(post.userId)) {
+            state.users.push(post.userId);
+          }
         });
       })
       .addCase(fetchAllPosts.rejected, (state, action) => {

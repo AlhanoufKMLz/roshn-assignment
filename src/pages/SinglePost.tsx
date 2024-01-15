@@ -8,13 +8,22 @@ import { fetchSinglePost } from "../redux/slices/posts";
 export default function SinglePost() {
   let { id } = useParams();
   const dispatch = useDispatch<AppDispatch>();
-  const { post, loading, error } = useSelector(
+  const { post, loading } = useSelector(
     (state: RootState) => state.posts
   );
 
   useEffect(() => {
     id && dispatch(fetchSinglePost(id));
   }, []);
+
+  if (loading) {
+    return (
+      <div className="lds-ripple">
+        <div></div>
+        <div></div>
+      </div>
+    );
+  }
 
   return (
     <div className="post">

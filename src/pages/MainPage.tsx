@@ -8,13 +8,13 @@ import PostsTable from "../components/PostsTable";
 
 export default function MainPage() {
   const dispatch = useDispatch<AppDispatch>();
-  const { postsList, users, loading, error } = useSelector(
+  const { postsList, users, loading } = useSelector(
     (state: RootState) => state.posts
   );
 
   const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
   const [postsToDisplay, setPostsToDisplay] = useState<Post[]>([]);
-  
+
   useEffect(() => {
     dispatch(fetchAllPosts());
   }, [dispatch]);
@@ -37,7 +37,7 @@ export default function MainPage() {
   //handle changes
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-  }
+  };
   function handleSort(event: React.ChangeEvent<HTMLSelectElement>) {
     dispatch(sortPosts(event.target.value));
     setFilteredPosts(postsList);
@@ -58,6 +58,15 @@ export default function MainPage() {
     setCurrentPage(1);
   }
 
+  if (loading) {
+    return (
+      <div className="lds-ripple">
+        <div></div>
+        <div></div>
+      </div>
+    )
+  }
+
   return (
     <div className="container">
       <div className="head">
@@ -69,7 +78,7 @@ export default function MainPage() {
           </select>
         </label>
         <label>
-          Records
+          Posts
           <select onChange={handleUpdateRecords} className="select">
             <option value="5">5</option>
             <option value="10">10</option>

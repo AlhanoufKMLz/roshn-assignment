@@ -1,38 +1,149 @@
 .App {
+  
+}
+.App a {
+  text-decoration: none;
+}
+
+.App .container {
+  margin: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: rgb(167, 190, 197);
+  border-radius: 15px;
+}
+
+/* table styles */
+.App table {
+  padding: 1rem;
+  background-color: white;
+  width: 100%;
+}
+
+.App table tr th {
+  color: rgb(167, 190, 197);
+}
+.App table tr:hover{
+  background-color: rgb(221, 228, 230);
+}
+
+.App table tr td{
+  padding: 1rem;
+}
+
+.App .text{
+  text-align: left;
+}
+
+.App .link{
+  padding: 1rem;
+  border-radius: 30%;
+  text-decoration: none;
+  box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.2);
+  background-color: rgb(167, 190, 197);
+}
+.App .link:hover{
+  box-shadow: none;
+  background-color: white;
+}
+
+/* head styles */
+.App .head {
+  display: flex;
+  gap: 1rem;
+  margin-left: 2rem;
+} 
+
+.App .container .head label {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  font-size: small;
+} 
+
+.App .select{
+  padding: 0.4rem;
+  border-radius: 10px 10px 0px 0px;
+  border-style: none;
+  width: 6rem;
+}
+
+/* pagination styles */
+.App .container .pagination{
+  display: flex;
+  justify-content: center;
+}
+
+.App .container .pagination button{
+  padding: 0.4rem;
+  width: 1.7rem;
+  border-radius: 0px 0px 10px 10px;
+  border-style: none;
+  background-color: rgb(221, 228, 230);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+.App .container .pagination button:hover{
+  background-color: white;
+  box-shadow: none;
+}
+
+.App .container .pagination .current{
+  padding: 0.4rem;
+  width: 1.7rem;
+  border-radius: 0px 0px 10px 10px;
+  border-style: none;
+  background-color: white;
+  box-shadow: none;
+}
+
+/* single post styles */
+.App .post{
+  display: flex;
+  flex-direction: column;
+  margin: 3rem;
+  padding: 2rem;
+  background-color: rgb(167, 190, 197);
+  border-radius: 15px;
+}
+
+.App .post .head{
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-right: 1.5rem;
+  text-align: center;
+}
+.App .post .head-right{
+  display: flex;
+  gap: 1rem;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App .info{
+  padding: 0.4rem;
+  border-radius: 10px 10px 0px 0px;
+  border-style: none;
+  background-color: rgb(221, 228, 230);
+  width: 6rem;
+  font-size: small;
+  font-weight: bold;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.App .post .title{
+  padding: 2rem;
+  background-color: rgb(221, 228, 230);
+  border-radius: 15px 15px 0px 0px;
+  font-size: larger;
+  font-weight: bolder;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.App .post .body{
+  padding: 2rem;
+  background-color: white;
+  border-radius: 0px 0px 15px 15px;
 }
 
-.App-link {
-  color: #61dafb;
-}
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+
+
+

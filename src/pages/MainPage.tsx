@@ -1,106 +1,163 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { AppDispatch, RootState } from "../redux/store";
-import {
-  getAllPostsFail,
-  getAllPostsSucsses,
-  sortPosts,
-} from "../redux/slices/posts";
+import { fetchAllPosts, sortPosts } from "../redux/slices/posts";
 import PostsTable from "../components/PostsTable";
 import { Post } from "../types/types";
 
 export default function MainPage() {
   const dispatch = useDispatch<AppDispatch>();
-  const { postsList, loading, error } = useSelector(
+  const { postsList, users, loading, error } = useSelector(
     (state: RootState) => state.posts
   );
 
-  const url = "https://jsonplaceholder.typicode.com/posts";
-  useEffect(() => {
-    axios
-    .get(url)
-    .then((response) => dispatch(getAllPostsSucsses(response.data)))
-    .catch((error) => dispatch(getAllPostsFail(error)));
-  }, []);
-
-  const [postsToDisplay, setPostsToDisplay] = useState<Post[]>(postsList)
+  const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
+  const [postsToDisplay, setPostsToDisplay] = useState<Post[]>([]);
   
-  // Pagination setup
-  const [currentPage, setCurrentPage] = useState(1)
-  const [recordsPerPage, setRecordsPerPage] = useState(5)
-  const totalPages = Math.ceil(postsList.length / recordsPerPage)
   useEffect(() => {
-    const indexOfLastItem = currentPage * recordsPerPage
-    const indexOfFirstItem = indexOfLastItem - recordsPerPage
-    setPostsToDisplay(postsList.slice(indexOfFirstItem, indexOfLastItem))
-  }, [currentPage, recordsPerPage])
+    dispatch(fetchAllPosts());
+  }, [dispatch]);
 
-  function sort(event: React.ChangeEvent<HTMLSelectElement>) {
-    dispatch(sortPosts(event.target.value));
-    setCurrentPage(1)
-  }
+  useEffect(() => {
+    setFilteredPosts(postsList);
+    setPostsToDisplay(postsList);
+  }, [postsList]);
 
-  function updateRecords(event: React.ChangeEvent<HTMLSelectElement>) {
-    const records = Number(event.target.value)
-    setRecordsPerPage(records)
-    setCurrentPage(1)
-  }
+  // Pagination setup
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage, setRecordsPerPage] = useState(5);
+  const totalPages = Math.ceil(filteredPosts.length / recordsPerPage);
+  useEffect(() => {
+    const indexOfLastItem = currentPage * recordsPerPage;
+    const indexOfFirstItem = indexOfLastItem - recordsPerPage;
+    setPostsToDisplay(filteredPosts.slice(indexOfFirstItem, indexOfLastItem));
+  }, [currentPage, recordsPerPage, filteredPosts]);
 
+  //handle changes
   const handlePageChange = (page: number) => {
-    setCurrentPage(page)
+    setCurrentPage(page);
+  }
+  function handleSort(event: React.ChangeEvent<HTMLSelectElement>) {
+    dispatch(sortPosts(event.target.value));
+    setFilteredPosts(postsList);
+    setCurrentPage(1);
+  }
+  function handleUpdateRecords(event: React.ChangeEvent<HTMLSelectElement>) {
+    const records = Number(event.target.value);
+    setRecordsPerPage(records);
+    setCurrentPage(1);
+  }
+  function handleUpdateUser(event: React.ChangeEvent<HTMLSelectElement>) {
+    const user = Number(event.target.value);
+    if (user === 0) setFilteredPosts(postsList);
+    else {
+      const posts = postsList.filter((post) => post.userId === user);
+      setFilteredPosts(posts);
+    }
+    setCurrentPage(1);
   }
 
   return (
-    <div>
-      <select onChange={sort}>
-        <option value="asc">Ascending</option>
-        <option value="des">Descending</option>
-      </select>
-      <select onChange={updateRecords}>
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="15">15</option>
-        <option value="20">20</option>
-        <option value="25">25</option>
-      </select>
-      <PostsTable postsToDisplay={postsToDisplay}/>
+    <div className="container">
+      <div className="head">
+        <label>
+          Sort
+          <select onChange={handleSort} className="select">
+            <option value="asc">Ascending</option>
+            <option value="des">Descending</option>
+          </select>
+        </label>
+        <label>
+          Records
+          <select onChange={handleUpdateRecords} className="select">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+          </select>
+        </label>
+        <label>
+          User
+          <select onChange={handleUpdateUser} className="select">
+            <option value="0">All users</option>
+            {users.map((user) => (
+              <option key={user} value={user}>
+                {user}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
 
-      {Array.from({ length: totalPages }, (_, index) => {
+      <PostsTable postsToDisplay={postsToDisplay} />
+
+      <div className="pagination">
+        {currentPage !== 1 && (
+          <div>
+            <button
+              onClick={() => {
+                handlePageChange(1);
+              }}
+            >
+              &lt;&lt;
+            </button>
+            <button
+              onClick={() => {
+                handlePageChange(currentPage - 1);
+              }}
+            >
+              &lt;
+            </button>
+          </div>
+        )}
+
+        {Array.from({ length: totalPages }, (_, index) => {
           if (
+            index + 1 == 1 ||
+            index + 1 === currentPage - 1 ||
             index + 1 === currentPage ||
             index + 1 === currentPage + 1 ||
-            index + 1 === currentPage - 1 ||
-            index + 1 == 1 ||
             index + 1 == totalPages
           )
             return (
               <button
+                className={index + 1 === currentPage ? "current" : ""}
                 key={index + 1}
-                className={
-                  index + 1 == currentPage
-                    ? 'rounded-full bg-primary_green w-6 m-2 text-secondary_grey'
-                    : 'rounded-full hover:border w-6 m-2 border-primary_pink text-primary_green'
-                }
                 onClick={() => {
-                  handlePageChange(index + 1)
-                }}>
+                  handlePageChange(index + 1);
+                }}
+              >
                 {index + 1}
               </button>
-            )
-          else return <span className="text-primary_green">.</span>
+            );
+          else if (
+            index + 1 === currentPage - 2 ||
+            index + 1 === currentPage + 2
+          )
+            return <span>...</span>;
         })}
+
         {currentPage !== totalPages && (
-          <button
-            className={'rounded-full hover:border w-6 m-2 border-primary_pink text-primary_green'}
-            onClick={() => {
-              handlePageChange(currentPage + 1)
-            }}>
-            &raquo;
-          </button>
+          <div>
+            <button
+              onClick={() => {
+                handlePageChange(currentPage + 1);
+              }}
+            >
+              &gt;
+            </button>
+            <button
+              onClick={() => {
+                handlePageChange(totalPages);
+              }}
+            >
+              &gt;&gt;
+            </button>
+          </div>
         )}
-      
+      </div>
     </div>
   );
 }

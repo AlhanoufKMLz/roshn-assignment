@@ -67,7 +67,7 @@ This will open the application in your default web browser.
 
 2. Explore the features such as tabular post view, pagination, sorting, and user selection.
 
-## Projrct Structure
+## Project Structure
 
 - src/components: Contains React components used in the application.
 - src/pages: Contains React components representing different pages of the application.

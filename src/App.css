@@ -1,6 +1,11 @@
 .App {
   margin: 2rem;
 }
+body {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
 .App a {
   text-decoration: none;
 }
@@ -14,7 +19,6 @@
 
 /* table styles */
 .App table {
-  padding: 1rem;
   background-color: white;
   width: 100%;
 }
@@ -60,11 +64,20 @@
   font-size: small;
 } 
 
+.App .head-left{
+  display: flex;
+  gap: 1rem;
+  text-align: center;
+}
+
 .App .select{
   padding: 0.4rem;
   border-radius: 10px 10px 0px 0px;
   border-style: none;
-  width: 6rem;
+  min-width: 6rem;
+  height: 100%;
+  font-size: small;
+  background-color: white;
 }
 
 /* pagination styles */
@@ -105,14 +118,14 @@
   border-radius: 15px;
 }
 
-.App .post .head{
+.App .head{
   display: flex;
   justify-content: space-between;
   gap: 1rem;
   margin-right: 1.5rem;
   text-align: center;
 }
-.App .post .head-right{
+.App .head-right{
   display: flex;
   gap: 1rem;
   text-align: center;
@@ -140,14 +153,6 @@
   padding: 2rem;
   background-color: white;
   border-radius: 0px 0px 15px 15px;
-}
-
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
 }
 
 /* loader */

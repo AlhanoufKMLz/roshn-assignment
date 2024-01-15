@@ -64,39 +64,46 @@ export default function MainPage() {
         <div></div>
         <div></div>
       </div>
-    )
+    );
   }
 
   return (
     <div className="container">
       <div className="head">
+        <div className="head-left">
+          <label>
+            Sort
+            <select onChange={handleSort} className="select">
+              <option value="asc">Ascending</option>
+              <option value="des">Descending</option>
+            </select>
+          </label>
+          <label>
+            Posts
+            <select onChange={handleUpdateRecords} className="select">
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>
+              <option value="25">25</option>
+            </select>
+          </label>
+          <label>
+            User
+            <select onChange={handleUpdateUser} className="select">
+              <option value="0">All users</option>
+              {users.map((user) => (
+                <option key={user} value={user}>
+                  {user}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+
         <label>
-          Sort
-          <select onChange={handleSort} className="select">
-            <option value="asc">Ascending</option>
-            <option value="des">Descending</option>
-          </select>
-        </label>
-        <label>
-          Posts
-          <select onChange={handleUpdateRecords} className="select">
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="15">15</option>
-            <option value="20">20</option>
-            <option value="25">25</option>
-          </select>
-        </label>
-        <label>
-          User
-          <select onChange={handleUpdateUser} className="select">
-            <option value="0">All users</option>
-            {users.map((user) => (
-              <option key={user} value={user}>
-                {user}
-              </option>
-            ))}
-          </select>
+          Total posts
+          <div className="select">{postsList.length}</div>
         </label>
       </div>
 

@@ -2,6 +2,11 @@ import { Link } from "react-router-dom";
 import { Post } from "../types/types";
 
 export default function PostsTable(prop: {postsToDisplay: Post[]}) {
+  if(!prop.postsToDisplay.length){
+    return(
+      <h1 className="error">There are no posts yet</h1>
+    )
+  }
   return (
     <div>
       <table>

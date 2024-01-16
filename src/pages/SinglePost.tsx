@@ -8,7 +8,7 @@ import { fetchSinglePost } from "../redux/slices/posts";
 export default function SinglePost() {
   let { id } = useParams();
   const dispatch = useDispatch<AppDispatch>();
-  const { post, loading } = useSelector(
+  const { post, loading, error } = useSelector(
     (state: RootState) => state.posts
   );
 
@@ -24,11 +24,16 @@ export default function SinglePost() {
       </div>
     );
   }
+  if (error !== null) {
+    return <h1>ERROR: {error}!</h1>;
+  }
 
   return (
     <div className="post">
       <div className="head">
-        <Link className="info" to="/">BACK</Link>
+        <Link className="info" to="/">
+          BACK
+        </Link>
         <div className="head-right">
           <div className="info">USER ID: {post?.userId}</div>
           <div className="info">POST ID: {post?.id}</div>

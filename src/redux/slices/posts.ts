@@ -5,17 +5,31 @@ import { InitialState } from "../../types/types";
 const url = "https://jsonplaceholder.typicode.com/posts";
 
 export const fetchAllPosts = createAsyncThunk("posts/fetchPosts", async () => {
-  const response = await fetch(url);
-  const data = await response.json();
-  return data;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error("Failed to fetch posts");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
 });
 
 export const fetchSinglePost = createAsyncThunk(
   "posts/fetchSinglePost",
   async (postId: string) => {
-    const response = await fetch(`${url}/${postId}`);
-    const data = await response.json();
-    return data;
+    try {
+      const response = await fetch(`${url}/${postId}`);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch post with ID: ${postId}`);
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      throw error;
+    }
   }
 );
 

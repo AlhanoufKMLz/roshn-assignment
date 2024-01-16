@@ -8,7 +8,7 @@ import PostsTable from "../components/PostsTable";
 
 export default function MainPage() {
   const dispatch = useDispatch<AppDispatch>();
-  const { postsList, users, loading } = useSelector(
+  const { postsList, users, loading, error } = useSelector(
     (state: RootState) => state.posts
   );
 
@@ -65,6 +65,9 @@ export default function MainPage() {
         <div></div>
       </div>
     );
+  }
+  if (error !== null) {
+    return <h1>ERROR: {error}!</h1>;
   }
 
   return (
